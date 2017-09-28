@@ -6,15 +6,15 @@
 #include "TSystem.h"
 
 
-const TString path = "/eos/cms/store/group/phys_higgs/cmshww/amassiro/Full2016_Apr17/Apr2017_summer16/lepSel__MCWeights__bSFLpTEffMulti__cleanTauMC__l2loose__hadd__l2tightOR__formulasMC";
-
+//const TString path = "/eos/cms/store/group/phys_higgs/cmshww/amassiro/Full2016_Apr17/Apr2017_summer16/lepSel__MCWeights__bSFLpTEffMulti__cleanTauMC__l2loose__hadd__l2tightOR__formulasMC";
+const TString path = "/eos/user/j/jgarciaf/minitrees/";
 
 //------------------------------------------------------------------------------
 //
 //  root -l 'eventByEventDifference.C+("latino_ZZZ")'
 //
 //------------------------------------------------------------------------------
-void eventByEventDifference(TString filename = "latino_ttDM0001pseudo00020")
+void eventByEventDifference(TString filename = "ttDM0001pseudo00500")
 {
   gInterpreter->ExecuteMacro("PaperStyle.C");
 
@@ -27,9 +27,13 @@ void eventByEventDifference(TString filename = "latino_ttDM0001pseudo00020")
   TChain* chain_up = new TChain("latino", "latino");
   TChain* chain_do = new TChain("latino", "latino");
 
-  chain   ->Add(path + "/"        + filename + ".root");
-  chain_up->Add(path + "__METup/" + filename + ".root");
-  chain_do->Add(path + "__METdo/" + filename + ".root");
+  //chain   ->Add(path + "/"        + filename + ".root");
+  //chain_up->Add(path + "__METup/" + filename + ".root");
+  //chain_do->Add(path + "__METdo/" + filename + ".root");
+
+  chain   ->Add(path + "julia/TTDM/IS-COPY/"       + filename + ".root");
+  chain_up->Add(path + "julia_METup/TTDM/IS-COPY/" + filename + ".root");
+  chain_do->Add(path + "julia_METdo/TTDM/IS-COPY/" + filename + ".root");
 
   float metPfType1;
   float metPfType1_up;
@@ -64,8 +68,7 @@ void eventByEventDifference(TString filename = "latino_ttDM0001pseudo00020")
     chain   ->GetEntry(jentry);
     chain_up->GetEntry(jentry);
     chain_do->GetEntry(jentry);
-
-
+	
     // Selection
     //--------------------------------------------------------------------------
     if (metPfType1 < 50.) continue;
@@ -78,6 +81,7 @@ void eventByEventDifference(TString filename = "latino_ttDM0001pseudo00020")
     if (deltaMet_up * deltaMet_do <= 0) continue;
 
     deltaMet_bad->Fill(deltaMet_up, deltaMet_do);
+  
   }
 
 
