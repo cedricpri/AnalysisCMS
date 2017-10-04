@@ -10,7 +10,7 @@ AnalysisTTDM::AnalysisTTDM(TTree* tree, TString systematic) : AnalysisCMS(tree, 
 {
   SetWriteHistograms(false);
   SetWriteMinitree(true);
-  SetMinitreePath("/eos/user/j/jgarciaf/");
+  SetMinitreePath("/eos/user/c/cprieels/minitrees/");
 }
 
 
@@ -122,6 +122,9 @@ void AnalysisTTDM::Loop(TString analysis, TString filename, float luminosity)
     //FillLevelHistograms(step_7, pass);
     pass &= ( _nbjet30csvv2m > 0                            );
     //FillLevelHistograms(step_8, pass);
+
+    //FillLevelHistograms(TTDM_01_NewPresel, pass);
+    if (_writeminitree && pass ) minitree->Fill();
 
     // TTV Three Leptons Control Region
     //--------------------------------------------------------------------------
