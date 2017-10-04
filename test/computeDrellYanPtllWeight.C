@@ -1,24 +1,24 @@
 // Member functions
 //------------------------------------------------------------------------------
-void SetAxis(TH1*    hist,
-	     TString xtitle,
-	     TString ytitle,
-	     Float_t xoffset,
-	     Float_t yoffset);
+void     SetAxis   (TH1*     hist,
+		    TString  xtitle,
+		    TString  ytitle,
+		    Float_t  xoffset,
+		    Float_t  yoffset);
 
-TLegend* DrawLegend(Float_t       x1,
-		    Float_t       y1,
-		    TObject*      hist,
-		    TString       label,
-		    TString       option  = "lp",
-		    Float_t       tsize   = 0.030,
-		    Float_t       xoffset = 0.200,
-		    Float_t       yoffset = 0.050);
+TLegend* DrawLegend(Float_t  x1,
+		    Float_t  y1,
+		    TObject* hist,
+		    TString  label,
+		    TString  option  = "lp",
+		    Float_t  tsize   = 0.030,
+		    Float_t  xoffset = 0.200,
+		    Float_t  yoffset = 0.050);
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// computeDrellYanPtllWeight
+// root -l computeDrellYanPtllWeight.C
 //
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void computeDrellYanPtllWeight(TString fname = "h_pt2l_mm")
@@ -34,17 +34,19 @@ void computeDrellYanPtllWeight(TString fname = "h_pt2l_mm")
   //----------------------------------------------------------------------------
   TCanvas* c1 = new TCanvas("c1", "c1");
 
-  ratio->SetMinimum(0.8);
-  ratio->SetMaximum(1.2);
+  ratio->SetMinimum(0.85);
+  ratio->SetMaximum(1.20);
 
   ratio->Draw("ep");
 
-  SetAxis(ratio, ratio->GetXaxis()->GetTitle(), "data / MC", 1.7, 1.8);
+  TString ytitle = Form("data / MC ratio / %.0f GeV", ratio->GetBinWidth(0));
+
+  SetAxis(ratio, ratio->GetXaxis()->GetTitle(), ytitle, 1.7, 1.8);
 
 
   // Old function
   //----------------------------------------------------------------------------
-  TF1* fOld = new TF1("fOld", "[2]*(0.95-[3]*TMath::Erf((x-[0])/[1]))", 0, 100);
+  TF1* fOld = new TF1("fOld", "[2]*(0.95-[3]*TMath::Erf((x-[0])/[1]))", 0, 200);
 
   fOld->SetLineStyle  (3);
   fOld->SetLineColor  (kBlue);
@@ -66,7 +68,7 @@ void computeDrellYanPtllWeight(TString fname = "h_pt2l_mm")
   //   4  p3           7.40024e-02   3.07885e-04   8.06164e-06  -1.70240e+00
   //  
   //----------------------------------------------------------------------------
-  TF1* fNew = new TF1("fNew", "[2]*(0.95-[3]*TMath::Erf((x-[0])/[1]))", 0, 100);
+  TF1* fNew = new TF1("fNew", "[2]*(0.95-[3]*TMath::Erf((x-[0])/[1]))", 0, 200);
 
   fNew->SetLineColor  (kRed+1);
   fNew->SetMarkerColor(kRed+1);
@@ -81,19 +83,26 @@ void computeDrellYanPtllWeight(TString fname = "h_pt2l_mm")
   
   // Lorenzo's function
   //----------------------------------------------------------------------------
-  TF1* fLorenzo = new TF1("fLorenzo", "(0.876979 + 4.11598e-03*x - 2.35520e-05*x*x) * (1.10211 * (0.958512 - 0.131835*TMath::Erf((x-14.1972)/10.1525)))", 0, 100);
+  TF1* fLo = new TF1("fLo", "(0.876979 + 4.11598e-03*x - 2.35520e-05*x*x) * (1.10211 * (0.958512 - 0.131835*TMath::Erf((x-14.1972)/10.1525)))", 0, 140);
 
-  fLorenzo->SetLineColor  (kGreen+1);
-  fLorenzo->SetMarkerColor(kGreen+1);
+  fLo->SetLineColor  (kGreen+1);
+  fLo->SetMarkerColor(kGreen+1);
 
-  fLorenzo->Draw("same");
+  fLo->Draw("same");
+
+  TF1* fHi = new TF1("fHi", "0.891188", 140, 200);
+
+  fHi->SetLineColor  (kGreen+1);
+  fHi->SetMarkerColor(kGreen+1);
+
+  fHi->Draw("same");
 
 
   // Legend
   //----------------------------------------------------------------------------
-  DrawLegend(0.68, 0.83, (TObject*)fOld,     " old fit");
-  DrawLegend(0.68, 0.77, (TObject*)fNew,     " new fit");
-  DrawLegend(0.68, 0.71, (TObject*)fLorenzo, " Lorenzo's fit");
+  DrawLegend(0.23, 0.83, (TObject*)fOld, " old fit");
+  DrawLegend(0.23, 0.77, (TObject*)fNew, " new fit");
+  DrawLegend(0.23, 0.71, (TObject*)fLo,  " Lorenzo's fit");
 
 
   // Save
