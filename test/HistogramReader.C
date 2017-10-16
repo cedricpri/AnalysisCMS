@@ -538,7 +538,7 @@ void HistogramReader::Draw(TString hname,
   //----------------------------------------------------------------------------
   // For Cedric, work in progress
   //----------------------------------------------------------------------------
-  Bool_t _changebinlabel = false;
+  Bool_t _changebinlabel = true;
 
   if (_changebinlabel)
     {
