@@ -111,7 +111,7 @@ class HistogramReader
 			       TString        xtitle,
 			       TString        ytitle,
 			       Float_t        xoffset = 5.4,
-			       Float_t        yoffset = 2.6);
+			       Float_t        yoffset = 2.7);
 
   void     SetHistogram       (TH1*           hist,
 			       Color_t        color,
@@ -123,6 +123,8 @@ class HistogramReader
 			       Bool_t         moveoverflow,
 			       Float_t&       xmin,
 			       Float_t&       xmax);
+
+  void     SetChangeBinLabel  (Bool_t         changebinlabel) {_changebinlabel = changebinlabel;}
 
   void     SetDataNorm        (Bool_t         datanorm) {_datanorm = datanorm;}
 
@@ -182,6 +184,7 @@ class HistogramReader
 
  private :
 
+  Bool_t                _changebinlabel;
   Bool_t                _datanorm;
   Bool_t                _drawratio;
   Bool_t                _drawsignificance;
