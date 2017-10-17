@@ -1,6 +1,5 @@
 #include "HistogramReader.h"
 
-
 // Constants
 //------------------------------------------------------------------------------
 const Bool_t allplots   = false;
@@ -8,8 +7,9 @@ const Bool_t datadriven = true;
 const Bool_t drawroc    = false;
 const Bool_t xsection   = false;
 const Bool_t basictest  = true;
+const Bool_t prepostfits = true;
 
-const TString inputdir  = "../rootfiles/nominal/";
+const TString inputdir  = "rootfiles/";
 const TString outputdir = "figures/";
 
 const TString sl  = "#font[12]{l}";
@@ -79,8 +79,7 @@ void runPlotter(TString level,
 
   // Get the data
   //----------------------------------------------------------------------------
-  plotter.AddData("01_Data", "Data", color_Data);
-
+  plotter.AddData("01_Data_Full2016_scalar010", "Data", color_Data);
 
   // Add processes
   //----------------------------------------------------------------------------
@@ -90,13 +89,17 @@ void runPlotter(TString level,
   plotter.AddProcess("09_TTV",       "tt+V",       color_TTV);
   plotter.AddProcess("05_ST",        "tW",         color_ST);
   plotter.AddProcess("04_TTTo2L2Nu", "tt",         color_TTTo2L2Nu, roc_background, 1.0);
-  //  plotter.AddProcess("14_HZ",        "HZ",       color_HZ);
-  //  plotter.AddProcess("10_HWW",       "HWW",      color_HWW);
-  //  plotter.AddProcess("06_WW",        "WW",       color_WW, roc_signal);
-  //  plotter.AddProcess("02_WZTo3LNu",  "WZ",       color_WZTo3LNu);
-  //  plotter.AddProcess("11_Wg",        "W#gamma",  color_Wg);
-  //  plotter.AddProcess("15_WgStar",    "W#gamma*", color_WgStar);
 
+  if(prepostfits) {
+    plotter.AddProcess("15_prefit.root", "Prefit", kBlue);
+  } else {
+    plotter.AddProcess("14_HZ",        "HZ",       color_HZ);
+    plotter.AddProcess("10_HWW",       "HWW",      color_HWW);
+    plotter.AddProcess("06_WW",        "WW",       color_WW, roc_signal);
+    plotter.AddProcess("02_WZTo3LNu",  "WZ",       color_WZTo3LNu);
+    plotter.AddProcess("11_Wg",        "W#gamma",  color_Wg);
+    plotter.AddProcess("15_WgStar",    "W#gamma*", color_WgStar);
+  }
 
   // Add signals
   //----------------------------------------------------------------------------
@@ -192,6 +195,10 @@ void runPlotter(TString level,
 
 	  // Common histograms
 	  //--------------------------------------------------------------------
+	  plotter.Draw( "ANN_output", "ANN output", -1, -1, "NULL", scale);
+
+	  if(prepostfits) continue;
+	  
 	  plotter.Draw(prefix + "pt2l"           + suffix, "p_{T}^{#font[12]{ll}}",               2, 0, "GeV",  scale, true, 0, 150);
 	  plotter.Draw(prefix + "lep1pt"         + suffix, "leading lepton p_{T}",                5, 0, "GeV",  scale, true, 0, 150);
 	  plotter.Draw(prefix + "lep2pt"         + suffix, "trailing lepton p_{T}",               5, 0, "GeV",  scale, true, 0, 150);
