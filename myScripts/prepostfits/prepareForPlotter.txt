@@ -1,0 +1,84 @@
+rm -r rootfiles_ttDM0001scalar00010/
+mkdir rootfiles_ttDM0001scalar00010/
+cp rootfiles_prefit_ttDM0001scalar00010/18_Prefit.root rootfiles_ttDM0001scalar00010/.
+cp rootfiles_postfit_ttDM0001scalar00010/0* rootfiles_ttDM0001scalar00010/.
+cp rootfiles_postfit_ttDM0001scalar00010/ttDM* rootfiles_ttDM0001scalar00010/.
+
+rm -r rootfiles_ttDM0001scalar00020/
+mkdir rootfiles_ttDM0001scalar00020/
+cp rootfiles_prefit_ttDM0001scalar00020/18_Prefit.root rootfiles_ttDM0001scalar00020/.
+cp rootfiles_postfit_ttDM0001scalar00020/0* rootfiles_ttDM0001scalar00020/.
+cp rootfiles_postfit_ttDM0001scalar00020/ttDM* rootfiles_ttDM0001scalar00020/.
+
+rm -r rootfiles_ttDM0001scalar00050/
+mkdir rootfiles_ttDM0001scalar00050/
+cp rootfiles_prefit_ttDM0001scalar00050/18_Prefit.root rootfiles_ttDM0001scalar00050/.
+cp rootfiles_postfit_ttDM0001scalar00050/0* rootfiles_ttDM0001scalar00050/.
+cp rootfiles_postfit_ttDM0001scalar00050/ttDM* rootfiles_ttDM0001scalar00050/.
+
+rm -r rootfiles_ttDM0001scalar00100/
+mkdir rootfiles_ttDM0001scalar00100/
+cp rootfiles_prefit_ttDM0001scalar00100/18_Prefit.root rootfiles_ttDM0001scalar00100/.
+cp rootfiles_postfit_ttDM0001scalar00100/0* rootfiles_ttDM0001scalar00100/.
+cp rootfiles_postfit_ttDM0001scalar00100/ttDM* rootfiles_ttDM0001scalar00100/.
+
+rm -r rootfiles_ttDM0001scalar00200/
+mkdir rootfiles_ttDM0001scalar00200/
+cp rootfiles_prefit_ttDM0001scalar00200/18_Prefit.root rootfiles_ttDM0001scalar00200/.
+cp rootfiles_postfit_ttDM0001scalar00200/0* rootfiles_ttDM0001scalar00200/.
+cp rootfiles_postfit_ttDM0001scalar00200/ttDM* rootfiles_ttDM0001scalar00200/.
+
+rm -r rootfiles_ttDM0001scalar00300/
+mkdir rootfiles_ttDM0001scalar00300/
+cp rootfiles_prefit_ttDM0001scalar00300/18_Prefit.root rootfiles_ttDM0001scalar00300/.
+cp rootfiles_postfit_ttDM0001scalar00300/0* rootfiles_ttDM0001scalar00300/.
+cp rootfiles_postfit_ttDM0001scalar00300/ttDM* rootfiles_ttDM0001scalar00300/.
+
+rm -r rootfiles_ttDM0001scalar00500/
+mkdir rootfiles_ttDM0001scalar00500/
+cp rootfiles_prefit_ttDM0001scalar00500/18_Prefit.root rootfiles_ttDM0001scalar00500/.
+cp rootfiles_postfit_ttDM0001scalar00500/0* rootfiles_ttDM0001scalar00500/.
+cp rootfiles_postfit_ttDM0001scalar00500/ttDM* rootfiles_ttDM0001scalar00500/.
+
+
+rm -r rootfiles_ttDM0001pseudo00010/
+mkdir rootfiles_ttDM0001pseudo00010/
+cp rootfiles_prefit_ttDM0001pseudo00010/18_Prefit.root rootfiles_ttDM0001pseudo00010/.
+cp rootfiles_postfit_ttDM0001pseudo00010/0* rootfiles_ttDM0001pseudo00010/.
+cp rootfiles_postfit_ttDM0001pseudo00010/ttDM* rootfiles_ttDM0001pseudo00010/.
+
+rm -r rootfiles_ttDM0001pseudo00020/
+mkdir rootfiles_ttDM0001pseudo00020/
+cp rootfiles_prefit_ttDM0001pseudo00020/18_Prefit.root rootfiles_ttDM0001pseudo00020/.
+cp rootfiles_postfit_ttDM0001pseudo00020/0* rootfiles_ttDM0001pseudo00020/.
+cp rootfiles_postfit_ttDM0001pseudo00020/ttDM* rootfiles_ttDM0001pseudo00020/.
+
+rm -r rootfiles_ttDM0001pseudo00050/
+mkdir rootfiles_ttDM0001pseudo00050/
+cp rootfiles_prefit_ttDM0001pseudo00050/18_Prefit.root rootfiles_ttDM0001pseudo00050/.
+cp rootfiles_postfit_ttDM0001pseudo00050/0* rootfiles_ttDM0001pseudo00050/.
+cp rootfiles_postfit_ttDM0001pseudo00050/ttDM* rootfiles_ttDM0001pseudo00050/.
+
+rm -r rootfiles_ttDM0001pseudo00100/
+mkdir rootfiles_ttDM0001pseudo00100/
+cp rootfiles_prefit_ttDM0001pseudo00100/18_Prefit.root rootfiles_ttDM0001pseudo00100/.
+cp rootfiles_postfit_ttDM0001pseudo00100/0* rootfiles_ttDM0001pseudo00100/.
+cp rootfiles_postfit_ttDM0001pseudo00100/ttDM* rootfiles_ttDM0001pseudo00100/.
+
+rm -r rootfiles_ttDM0001pseudo00200/
+mkdir rootfiles_ttDM0001pseudo00200/
+cp rootfiles_prefit_ttDM0001pseudo00200/18_Prefit.root rootfiles_ttDM0001pseudo00200/.
+cp rootfiles_postfit_ttDM0001pseudo00200/0* rootfiles_ttDM0001pseudo00200/.
+cp rootfiles_postfit_ttDM0001pseudo00200/ttDM* rootfiles_ttDM0001pseudo00200/.
+
+rm -r rootfiles_ttDM0001pseudo00300/
+mkdir rootfiles_ttDM0001pseudo00300/
+cp rootfiles_prefit_ttDM0001pseudo00300/18_Prefit.root rootfiles_ttDM0001pseudo00300/.
+cp rootfiles_postfit_ttDM0001pseudo00300/0* rootfiles_ttDM0001pseudo00300/.
+cp rootfiles_postfit_ttDM0001pseudo00300/ttDM* rootfiles_ttDM0001pseudo00300/.
+
+rm -r rootfiles_ttDM0001pseudo00500/
+mkdir rootfiles_ttDM0001pseudo00500/
+cp rootfiles_prefit_ttDM0001pseudo00500/18_Prefit.root rootfiles_ttDM0001pseudo00500/.
+cp rootfiles_postfit_ttDM0001pseudo00500/0* rootfiles_ttDM0001pseudo00500/.
+cp rootfiles_postfit_ttDM0001pseudo00500/ttDM* rootfiles_ttDM0001pseudo00500/.
