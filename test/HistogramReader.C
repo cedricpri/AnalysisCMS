@@ -344,7 +344,8 @@ void HistogramReader::Draw(TString hname,
 
       _prefithist = (TH1D*)dummy->Clone();
       
-      if (_luminosity_fb) _prefithist->Scale(_luminosity_fb);
+      //if (_luminosity_fb) _prefithist->Scale(_luminosity_fb);
+      if (_luminosity_fb) _prefithist->Scale(1.);
       
       SetHistogram(_prefithist, _prefitcolor, 0, kDot, 7, 4, ngroup, moveoverflow, xmin, xmax);
     }
