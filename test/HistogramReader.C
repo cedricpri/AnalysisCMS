@@ -495,7 +495,7 @@ void HistogramReader::Draw(TString hname,
   if (pad1->GetLogy())
     {
       theMin = 0.2;
-      theMax = TMath::Power(10, TMath::Log10(theMax) + 8);
+      theMax = TMath::Power(10, TMath::Log10(theMax) + 4);
     }
   else
     {
@@ -512,7 +512,7 @@ void HistogramReader::Draw(TString hname,
   // Legend
   //----------------------------------------------------------------------------
   Float_t tsize  = 0.030;                         // text size
-  Float_t x0     = 0.220;                         // x position of the data on the top left
+  Float_t x0     = 0.218;                         // x position of the data on the top left
   Float_t y0     = 0.843;                         // y position of the data on the top left
   Float_t xdelta = (_drawyield) ? 0.228 : 0.170;  // x width between columns
   Float_t ydelta = 0.050;                         // y width between rows
@@ -524,8 +524,8 @@ void HistogramReader::Draw(TString hname,
   if (_publicstyle)
     {
       tsize  = 0.035;
-      x0     = 0.530;
-      ydelta = 0.048;
+      xdelta = 0.282;
+      ydelta = 0.049;
     }
 
 
@@ -551,7 +551,7 @@ void HistogramReader::Draw(TString hname,
   //----------------------------------------------------------------------------
   Int_t nrow = (_mchist.size() > 10) ? 5 : 4;
 
-  if (_publicstyle) nrow = 100;
+  if (_publicstyle) nrow = 5;
 
   for (int i=0; i<_mchist.size(); i++)
     {
@@ -599,8 +599,8 @@ void HistogramReader::Draw(TString hname,
   //----------------------------------------------------------------------------
   if (_publicstyle)
     {
-      DrawLatex(61, 0.22, 0.843, 0.050, 11, "CMS");
-      DrawLatex(52, 0.22, 0.803, 0.030, 11, "Preliminary");
+      DrawLatex(61, 0.190, 0.945, 0.050, 11, "CMS");
+      DrawLatex(52, 0.268, 0.945, 0.035, 11, "Preliminary");
     }
   else
     {
