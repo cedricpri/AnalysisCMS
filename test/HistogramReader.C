@@ -1255,6 +1255,8 @@ void HistogramReader::LoopEventsByCut(TString analysis, TString hname)
   for (UInt_t i=0; i<_mcfile.size(); i++) EventsByCut(_mcfile[i], analysis, hname);
 
   for (UInt_t i=0; i<_signalfile.size(); i++) EventsByCut(_signalfile[i], analysis, hname);
+
+  if (_prefitfile) EventsByCut(_prefitfile, analysis, hname);
 }
 
 
@@ -1268,7 +1270,6 @@ void HistogramReader::EventsByChannel(TFile*  file,
   TH1D* test_hist = (TH1D*)file->Get(level + "/h_counterLum_evolution");
 
   if (test_hist) return;
-
 
   // Get the number of bins
   Int_t firstchannel = (level.Contains("WZ/")) ? eee : ee;
@@ -1313,6 +1314,8 @@ void HistogramReader::LoopEventsByChannel(TString level)
   for (UInt_t i=0; i<_mcfile.size(); i++) EventsByChannel(_mcfile[i], level);
 
   for (UInt_t i=0; i<_signalfile.size(); i++) EventsByChannel(_signalfile[i], level);
+
+  if (_prefitfile) EventsByChannel(_prefitfile, level);
 }
 
 
@@ -1460,7 +1463,7 @@ void HistogramReader::WriteYields(TH1*    hist,
     {
       _writelabels = false;
 
-      _yields_table << Form("\n %15s", " ");
+      _yields_table << Form("\n %40s", " ");
 
       for (int i=firstBin; i<=lastBin; i++) {
 
@@ -1468,26 +1471,26 @@ void HistogramReader::WriteYields(TH1*    hist,
 
 	if (!hname.Contains("evolution")) binlabel = Form("%d", i);
 	    
-	_yields_table << Form(" | %-24s", binlabel.Data());
+	_yields_table << Form(" | %-25s", binlabel.Data());
       }
 
       _yields_table << Form("\n");
     }
 
-  _yields_table << Form(" %15s", label.Data());
+  _yields_table << Form(" %40s", label.Data());
 
   for (int i=firstBin; i<=lastBin; i++) {
 
     float process_yield = hist->GetBinContent(i);
     float process_error = sqrt(hist->GetSumw2()->At(i));
 
-    if (label.EqualTo("data"))
+    if (label.EqualTo("data") || label.EqualTo("Data"))
       {
-	_yields_table << Form(" | %8.0f %15s", process_yield, " ");
+	_yields_table << Form(" | %8.0f %16s", process_yield, " ");
       }
     else
       {
-	_yields_table << Form(" | %11.2f +/- %8.2f", process_yield, process_error);
+	_yields_table << Form(" | %11.2f +/- %9.2f", process_yield, process_error);
       }
   }
 

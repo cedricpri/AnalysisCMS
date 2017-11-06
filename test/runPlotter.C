@@ -1,5 +1,6 @@
 #include "HistogramReader.h"
 
+
 // Constants
 //------------------------------------------------------------------------------
 const Bool_t allplots   = false;
@@ -7,9 +8,8 @@ const Bool_t datadriven = true;
 const Bool_t drawroc    = false;
 const Bool_t xsection   = false;
 const Bool_t basictest  = true;
-const Bool_t prepostfits = true;
 
-const TString inputdir  = "rootfiles/";
+const TString inputdir  = "../rootfiles/nominal/";
 const TString outputdir = "figures/";
 
 const TString sl  = "#font[12]{l}";
@@ -62,7 +62,7 @@ void runPlotter(TString level,
   HistogramReader plotter(inputdir + analysis, outputdir);
 
   plotter.SetStackOption   (option);
-  plotter.SetPublicStyle   (  true);
+  plotter.SetPublicStyle   ( false);
   plotter.SetSavePdf       (  true);
   plotter.SetChangeBinLabel( false);
 
@@ -79,41 +79,32 @@ void runPlotter(TString level,
 
   // Get the data
   //----------------------------------------------------------------------------
-  plotter.AddData("01_Data_Full2016_scalar010", "Data", color_Data);
+  plotter.AddData("01_Data", "Data", color_Data);
+
 
   // Add processes
   //----------------------------------------------------------------------------
-  plotter.AddProcess("07_ZJets",     "DY",         color_ZJets, roc_background, 1.0);
-  plotter.AddProcess("03_VZ",        "Diboson",    color_VZ);
-  plotter.AddProcess("00_Fakes",     "Non-prompt", color_Fakes, roc_background, -999);  // Don't lumi scale
-  plotter.AddProcess("09_TTV",       "tt+V",       color_TTV);
-  plotter.AddProcess("05_ST",        "tW",         color_ST);
-  plotter.AddProcess("04_TTTo2L2Nu", "tt",         color_TTTo2L2Nu, roc_background, 1.0);
-  //  plotter.AddProcess("14_HZ",        "HZ",       color_HZ);
-  //  plotter.AddProcess("10_HWW",       "HWW",      color_HWW);
-  //  plotter.AddProcess("06_WW",        "WW",       color_WW, roc_signal);
-  //  plotter.AddProcess("02_WZTo3LNu",  "WZ",       color_WZTo3LNu);
-  //  plotter.AddProcess("11_Wg",        "W#gamma",  color_Wg);
-  //  plotter.AddProcess("15_WgStar",    "W#gamma*", color_WgStar);
+  plotter.AddProcess("07_ZJets",     "DY",                             color_ZJets, roc_background, 1.0);
+  plotter.AddProcess("03_VZ",        "Diboson",                        color_VZ);
+  plotter.AddProcess("00_Fakes",     "W+jets / t#bar{t}(1l) / tW(1l)", color_Fakes, roc_background, -999);  // Don't lumi scale
+  plotter.AddProcess("09_TTV",       "t#bar{t}+V",                     color_TTV);
+  plotter.AddProcess("05_ST",        "Single t (2l)",                  color_ST);
+  plotter.AddProcess("04_TTTo2L2Nu", "t#bar{t}(2l)",                   color_TTTo2L2Nu, roc_background, 1.0);
+  plotter.AddProcess("14_HZ",        "HZ",                             color_HZ);
+  plotter.AddProcess("10_HWW",       "HWW",                            color_HWW);
+  plotter.AddProcess("06_WW",        "WW",                             color_WW, roc_signal);
+  plotter.AddProcess("02_WZTo3LNu",  "WZ",                             color_WZTo3LNu);
+  plotter.AddProcess("11_Wg",        "W#gamma",                        color_Wg);
+  plotter.AddProcess("15_WgStar",    "W#gamma*",                       color_WgStar);
 
-  if(prepostfits) {
-    plotter.AddProcess("15_prefit.root", "Prefit", kBlue);
-  } else {
-    plotter.AddProcess("14_HZ",        "HZ",       color_HZ);
-    plotter.AddProcess("10_HWW",       "HWW",      color_HWW);
-    plotter.AddProcess("06_WW",        "WW",       color_WW, roc_signal);
-    plotter.AddProcess("02_WZTo3LNu",  "WZ",       color_WZTo3LNu);
-    plotter.AddProcess("11_Wg",        "W#gamma",  color_Wg);
-    plotter.AddProcess("15_WgStar",    "W#gamma*", color_WgStar);
-  }
 
   // Add prefit and signal
   //----------------------------------------------------------------------------
   if (analysis.EqualTo("Control"))
     {
-      plotter.AddPrefit("99_Prefit", "pre-fit", kBlue+1);
+      plotter.AddPrefit("99_Prefit", "pre-fit", color_Prefit);
 
-      plotter.AddSignal("ttDM0001pseudo00010", "PS M_{#Phi}=10 GeV, M_{#chi}=1 GeV x100", kMagenta+1, roc_background, 100);
+      plotter.AddSignal("ttDM0001pseudo00010", "PS M_{#Phi}=10 GeV, M_{#chi}=1 GeV x100", color_Signal, roc_background, 100);
     }
 
 
@@ -203,39 +194,31 @@ void runPlotter(TString level,
 
 	  // Common histograms
 	  //--------------------------------------------------------------------
-	  plotter.Draw( "ANN_output", "ANN output", -1, -1, "NULL", scale);
-
-	  if(prepostfits) continue;
-	  
-	  plotter.Draw(prefix + "dphillmet" + suffix, "#Delta#phi(" + sll + "," + sm + ")", 5, 2, "rad", logY, false, 0, 3.14);
-
-	  if (basictest) continue;
-
-	  plotter.Draw(prefix + "m2l" + suffix, "m_{" + sll + "}", 5, 0, "GeV", logY, true, 0, 300);
-	  plotter.Draw(prefix + "m2l" + suffix, "m_{" + sll + "}", 5, 0, "GeV", linY, true, 0, 300);
-
-	  plotter.Draw(prefix + "pt2l"           + suffix, "p_{T}^{#font[12]{ll}}",               2,  0, "GeV",  scale, true, 0, 150);
-	  plotter.Draw(prefix + "lep1pt"         + suffix, "leading lepton p_{T}",                5,  0, "GeV",  scale, true, 0, 150);
-	  plotter.Draw(prefix + "lep2pt"         + suffix, "trailing lepton p_{T}",               5,  0, "GeV",  scale, true, 0, 150);
-	  plotter.Draw(prefix + "lep1eta"        + suffix, "leading lepton #eta",                -1,  1, "NULL", scale);
-	  plotter.Draw(prefix + "lep2eta"        + suffix, "trailing lepton #eta",               -1,  1, "NULL", scale);
-	  plotter.Draw(prefix + "lep1phi"        + suffix, "leading lepton #phi",                 5,  2, "rad",  scale);
-	  plotter.Draw(prefix + "lep2phi"        + suffix, "trailing lepton #phi",                5,  2, "rad",  scale);
-	  plotter.Draw(prefix + "nvtx"           + suffix, "number of vertices",                 -1, -1, "NULL", scale, true,  0,  30);
-          plotter.Draw(prefix + "metPfType1"     + suffix, sm,                                   10,  0, "GeV",  logY,  true, 20, 200);
-          plotter.Draw(prefix + "metPfType1"     + suffix, sm,                                   10,  0, "GeV",  linY,  true, 20, 200);
-	  plotter.Draw(prefix + "njet"           + suffix, "number of 30 GeV jets",              -1, -1, "NULL", logY);
-	  plotter.Draw(prefix + "nbjet20cmvav2l" + suffix, "number of 20 GeV cmvav2l b-jets",    -1, -1, "NULL", scale);
-	  plotter.Draw(prefix + "nbjet30csvv2m"  + suffix, "number of 30 GeV csvv2m b-jets",     -1, -1, "NULL", scale);
-	  plotter.Draw(prefix + "metPfType1Phi"  + suffix, sm + " #phi",                          5,  2, "rad",  scale);
+	  plotter.Draw(prefix + "m2l"            + suffix, "m_{" + sll + "}",                     5,  0, "GeV",  logY,  true,   0,  300);
+	  plotter.Draw(prefix + "m2l"            + suffix, "m_{" + sll + "}",                     5,  0, "GeV",  linY,  true,   0,  300);
+	  plotter.Draw(prefix + "dphillmet"      + suffix, "#Delta#phi(" + sll + "," + sm + ")",  5,  2, "rad",  logY,  false,  0, 3.14);
+	  plotter.Draw(prefix + "pt2l"           + suffix, "p_{T}^{#font[12]{ll}}",               2,  0, "GeV",  scale, true,   0,  150);
+	  plotter.Draw(prefix + "lep1pt"         + suffix, "leading lepton p_{T}",                5,  0, "GeV",  scale, true,   0,  150);
+	  plotter.Draw(prefix + "lep2pt"         + suffix, "trailing lepton p_{T}",               5,  0, "GeV",  scale, true,   0,  150);
+	  plotter.Draw(prefix + "nvtx"           + suffix, "number of vertices",                 -1, -1, "NULL", scale, true,   0,   30);
+          plotter.Draw(prefix + "metPfType1"     + suffix, sm,                                   10,  0, "GeV",  logY,  true,  20,  200);
+          plotter.Draw(prefix + "metPfType1"     + suffix, sm,                                   10,  0, "GeV",  linY,  true,  20,  200);
+	  plotter.Draw(prefix + "jet1pt"         + suffix, "leading jet p_{T}",                   5,  0, "GeV",  scale, false,  0,  400);
+	  plotter.Draw(prefix + "jet2pt"         + suffix, "trailing jet p_{T}",                  5,  0, "GeV",  scale, false,  0,  400);
+	  plotter.Draw(prefix + "detall"         + suffix, "#Delta#eta(lep1,lep2)",               5,  2, "rad",  scale, true,   0,    5);
 	  plotter.Draw(prefix + "jet1eta"        + suffix, "leading jet #eta",                   -1,  1, "NULL", scale, false);
 	  plotter.Draw(prefix + "jet2eta"        + suffix, "trailing jet #eta",                  -1,  1, "NULL", scale, false);
 	  plotter.Draw(prefix + "jet1phi"        + suffix, "leading jet #phi",                    5,  2, "rad",  scale, false);
 	  plotter.Draw(prefix + "jet2phi"        + suffix, "trailing jet #phi",                   5,  2, "rad",  scale, false);
-	  plotter.Draw(prefix + "jet1pt"         + suffix, "leading jet p_{T}",                   5,  0, "GeV",  scale, false, 0, 400);
-	  plotter.Draw(prefix + "jet2pt"         + suffix, "trailing jet p_{T}",                  5,  0, "GeV",  scale, false, 0, 400);
 	  plotter.Draw(prefix + "dphill"         + suffix, "#Delta#phi(lep1,lep2)",               5,  2, "rad",  scale, false);
-	  plotter.Draw(prefix + "detall"         + suffix, "#Delta#eta(lep1,lep2)",               5,  2, "rad",  scale, true, 0, 5);
+	  plotter.Draw(prefix + "lep1eta"        + suffix, "leading lepton #eta",                -1,  1, "NULL", scale);
+	  plotter.Draw(prefix + "lep2eta"        + suffix, "trailing lepton #eta",               -1,  1, "NULL", scale);
+	  plotter.Draw(prefix + "lep1phi"        + suffix, "leading lepton #phi",                 5,  2, "rad",  scale);
+	  plotter.Draw(prefix + "lep2phi"        + suffix, "trailing lepton #phi",                5,  2, "rad",  scale);
+	  plotter.Draw(prefix + "njet"           + suffix, "number of 30 GeV jets",              -1, -1, "NULL", logY);
+	  plotter.Draw(prefix + "nbjet20cmvav2l" + suffix, "number of 20 GeV cmvav2l b-jets",    -1, -1, "NULL", scale);
+	  plotter.Draw(prefix + "nbjet30csvv2m"  + suffix, "number of 30 GeV csvv2m b-jets",     -1, -1, "NULL", scale);
+	  plotter.Draw(prefix + "metPfType1Phi"  + suffix, sm + " #phi",                          5,  2, "rad",  scale);
 
 
 	  // ROC
