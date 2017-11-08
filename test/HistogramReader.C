@@ -704,7 +704,7 @@ void HistogramReader::Draw(TString hname,
       // The ChangeLabel method requires ROOT 6.10/05 (available in CMSSW_9_3_3)
       //
       //////////////////////////////////////////////////////////////////////////
-      bool testForCedric = false;
+      bool testForCedric = true;
 
       if (testForCedric)
 	{
