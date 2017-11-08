@@ -21,7 +21,7 @@ HistogramReader::HistogramReader(const TString& inputdir,
   _stackoption     ("nostack,hist"),
   _title           ("inclusive"),
   _luminosity_fb   (-1),
-  _changebinlabel  (false),
+  _changelabel     (false),
   _datanorm        (false),
   _drawratio       (false),
   _drawsignificance(false),
@@ -629,18 +629,6 @@ void HistogramReader::Draw(TString hname,
 
 
   //----------------------------------------------------------------------------
-  // Change the bin label
-  //----------------------------------------------------------------------------
-  if (_changebinlabel)
-    {
-      for (Int_t ibin=1; ibin<=hfirst->GetNbinsX(); ibin++) {
-
-      	hfirst->GetXaxis()->SetBinLabel(ibin, Form("%d", ibin));
-      }
-    }
-
-
-  //----------------------------------------------------------------------------
   // pad2
   //----------------------------------------------------------------------------
   if (_drawratio && _datafile)
@@ -658,9 +646,6 @@ void HistogramReader::Draw(TString hname,
       TH1D* prefitratio = (_prefithist) ? (TH1D*)_prefithist->Clone("prefitratio") : NULL;
 
       for (Int_t ibin=1; ibin<=ratio->GetNbinsX(); ibin++) {
-
-	// Change the bin label
-	if (_changebinlabel) ratio->GetXaxis()->SetBinLabel(ibin, Form("%d", ibin));
 
 	Float_t dtValue = _datahist->GetBinContent(ibin);
 	Float_t dtError = _datahist->GetBinError(ibin);
@@ -704,9 +689,8 @@ void HistogramReader::Draw(TString hname,
       // The ChangeLabel method requires ROOT 6.10/05 (available in CMSSW_9_3_3)
       //
       //////////////////////////////////////////////////////////////////////////
-      bool testForCedric = true;
 
-      if (testForCedric)
+      if (_changelabel)
 	{
 	  TAxis* xaxis = (TAxis*)ratio->GetXaxis();
       
