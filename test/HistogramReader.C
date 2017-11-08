@@ -633,8 +633,7 @@ void HistogramReader::Draw(TString hname,
   //----------------------------------------------------------------------------
   if (_changebinlabel)
     {
-      for (Int_t ibin=1; ibin<=hfirst->GetNbinsX(); ibin++) {
-	
+      for (Int_t ibin=1; ibin<=hfirst->GetNbinsX(); ibin++) {	
 	hfirst->GetXaxis()->SetBinLabel(ibin, Form("%d", ibin));
       }
     }
@@ -657,9 +656,11 @@ void HistogramReader::Draw(TString hname,
       TH1D* uncertainty = (TH1D*)_allmchist->Clone("uncertainty");
       TH1D* prefitratio = (_prefithist) ? (TH1D*)_prefithist->Clone("prefitratio") : NULL;
 
+      float bins[] = {0.00, 0.30, 0.50, 0.70, 0.80, 0.95, 0.96, 0.97, 0.98, 0.99, 1.00};
+
       for (Int_t ibin=1; ibin<=ratio->GetNbinsX(); ibin++) {
 
-	if (_changebinlabel) ratio->GetXaxis()->SetBinLabel(ibin, Form("%d", ibin));
+	if (_changebinlabel) ratio->GetXaxis()->SetBinLabel(ibin, Form("%.2f", bins[ibin-1]));
 
 	Float_t dtValue = _datahist->GetBinContent(ibin);
 	Float_t dtError = _datahist->GetBinError(ibin);
