@@ -52,10 +52,11 @@ void PlotterPrepostfits(TString option = "hist", TString signal = "ttDM0001scala
   HistogramReader plotter( inputdir + "/", outputdir);
   //HistogramReader plotter( inputdir + signal + "/", outputdir);
 
-  plotter.SetStackOption  (option);
-  plotter.SetPublicStyle  (true);
-  plotter.SetMinitreeBased(true);
-  plotter.SetSavePdf      (true);
+  plotter.SetStackOption   (option);
+  plotter.SetPublicStyle   (true);
+  plotter.SetMinitreeBased (true);
+  plotter.SetSavePdf       (true);
+  plotter.SetChangeBinLabel(false);
 
   if (option.Contains("nostack"))
     {
@@ -119,20 +120,22 @@ void PlotterPrepostfits(TString option = "hist", TString signal = "ttDM0001scala
   //plotter.AddSignal("ttDM0001scalar00100", "m_{#chi}1 m_{S}100 x200",  color_Signal, roc_signal, 200./2.391 );
   //plotter.AddSignal("ttDM0001pseudo00100", "m_{#chi}1 m_{P}100 x300",  color_Signal, roc_signal, 300./2.391 );
 
-  if( masspoint == "ttDM0001scalar00010")   plotter.AddSignal("ttDM0001scalar00010", "S M_{#Phi}=10 GeV, M_{#chi}=1 GeV x20",    color_Signal, roc_signal, 20./lumi_fb_Full2016 );
-  if( masspoint == "ttDM0001scalar00020")   plotter.AddSignal("ttDM0001scalar00020", "S M_{#Phi}=20 GeV, M_{#chi}=1 GeV x50",    color_Signal, roc_signal, 50./lumi_fb_Full2016 );
-  if( masspoint == "ttDM0001scalar00050")   plotter.AddSignal("ttDM0001scalar00050", "S M_{#Phi}=50 GeV, M_{#chi}=1 GeV x100",    color_Signal, roc_signal, 100./lumi_fb_Full2016 );
-  if( masspoint == "ttDM0001scalar00100")   plotter.AddSignal("ttDM0001scalar00100", "S M_{#Phi}=100 GeV, M_{#chi}=1 GeV x200",   color_Signal, roc_signal, 200./lumi_fb_Full2016 );
-  if( masspoint == "ttDM0001scalar00200")   plotter.AddSignal("ttDM0001scalar00200", "S M_{#Phi}=200 GeV, M_{#chi}=1 GeV x400",   color_Signal, roc_signal, 400./lumi_fb_Full2016 );
-  if( masspoint == "ttDM0001scalar00300")   plotter.AddSignal("ttDM0001scalar00300", "S M_{#Phi}=300 GeV, M_{#chi}=1 GeV x1000",   color_Signal, roc_signal, 1000./lumi_fb_Full2016 );
-  if( masspoint == "ttDM0001scalar00500")   plotter.AddSignal("ttDM0001scalar00500", "S M_{#Phi}=500 GeV, M_{#chi}=1 GeV x1e4",   color_Signal, roc_signal, 10000./lumi_fb_Full2016 );
-  if( masspoint == "ttDM0001pseudo00010")   plotter.AddSignal("ttDM0001pseudo00010", "PS M_{#Phi}=10 GeV, M_{#chi}=1 GeV x100",   color_Signal, roc_signal, 100./lumi_fb_Full2016 );
-  if( masspoint == "ttDM0001pseudo00020")   plotter.AddSignal("ttDM0001pseudo00020", "PS M_{#Phi}=20 GeV, M_{#chi}=1 GeV x150",   color_Signal, roc_signal, 150./lumi_fb_Full2016 );
-  if( masspoint == "ttDM0001pseudo00050")   plotter.AddSignal("ttDM0001pseudo00050", "PS M_{#Phi}=50 GeV, M_{#chi}=1 GeV x200",   color_Signal, roc_signal, 200./lumi_fb_Full2016 );
-  if( masspoint == "ttDM0001pseudo00100")   plotter.AddSignal("ttDM0001pseudo00100", "PS M_{#Phi}=100 GeV, M_{#chi}=1 GeV x300",  color_Signal, roc_signal, 300./lumi_fb_Full2016 );
-  if( masspoint == "ttDM0001pseudo00200")   plotter.AddSignal("ttDM0001pseudo00200", "PS M_{#Phi}=200 GeV, M_{#chi}=1 GeV x400",  color_Signal, roc_signal, 400./lumi_fb_Full2016 );
-  if( masspoint == "ttDM0001pseudo00300")   plotter.AddSignal("ttDM0001pseudo00300", "PS M_{#Phi}=300 GeV, M_{#chi}=1 GeV x1000",  color_Signal, roc_signal, 1000./lumi_fb_Full2016 );
-  if( masspoint == "ttDM0001pseudo00500")   plotter.AddSignal("ttDM0001pseudo00500", "PS M_{#Phi}=500 GeV, M_{#chi}=1 GeV x1e4",  color_Signal, roc_signal, 10000./lumi_fb_Full2016 );
+  if( masspoint == "ttDM0001scalar00010")   plotter.AddSignal("ttDM0001scalar00010", "S M_{#Phi}=10 GeV, M_{#chi}=1 GeV x20",    kBlue+1, roc_signal, 20./lumi_fb_Full2016 );
+  if( masspoint == "ttDM0001scalar00020")   plotter.AddSignal("ttDM0001scalar00020", "S M_{#Phi}=20 GeV, M_{#chi}=1 GeV x50",    kBlue+1, roc_signal, 50./lumi_fb_Full2016 );
+  if( masspoint == "ttDM0001scalar00050")   plotter.AddSignal("ttDM0001scalar00050", "S M_{#Phi}=50 GeV, M_{#chi}=1 GeV x100",    kBlue+1, roc_signal, 100./lumi_fb_Full2016 );
+  if( masspoint == "ttDM0001scalar00100")   plotter.AddSignal("ttDM0001scalar00100", "S M_{#Phi}=100 GeV, M_{#chi}=1 GeV x200",   kBlue+1, roc_signal, 200./lumi_fb_Full2016 );
+  if( masspoint == "ttDM0001scalar00200")   plotter.AddSignal("ttDM0001scalar00200", "S M_{#Phi}=200 GeV, M_{#chi}=1 GeV x400",   kBlue+1, roc_signal, 400./lumi_fb_Full2016 );
+  if( masspoint == "ttDM0001scalar00300")   plotter.AddSignal("ttDM0001scalar00300", "S M_{#Phi}=300 GeV, M_{#chi}=1 GeV x1000",   kBlue+1, roc_signal, 1000./lumi_fb_Full2016 );
+  if( masspoint == "ttDM0001scalar00500")   plotter.AddSignal("ttDM0001scalar00500", "S M_{#Phi}=500 GeV, M_{#chi}=1 GeV x1e4",   kBlue+1, roc_signal, 10000./lumi_fb_Full2016 );
+
+
+  if( masspoint == "ttDM0001pseudo00010")   plotter.AddSignal("ttDM0001pseudo00010", "PS M_{#Phi}=10 GeV, M_{#chi}=1 GeV x100",   kMagenta+2, roc_signal, 100./lumi_fb_Full2016 );
+  if( masspoint == "ttDM0001pseudo00020")   plotter.AddSignal("ttDM0001pseudo00020", "PS M_{#Phi}=20 GeV, M_{#chi}=1 GeV x150",   kMagenta+2, roc_signal, 150./lumi_fb_Full2016 );
+  if( masspoint == "ttDM0001pseudo00050")   plotter.AddSignal("ttDM0001pseudo00050", "PS M_{#Phi}=50 GeV, M_{#chi}=1 GeV x200",   kMagenta+2, roc_signal, 200./lumi_fb_Full2016 );
+  if( masspoint == "ttDM0001pseudo00100")   plotter.AddSignal("ttDM0001pseudo00100", "PS M_{#Phi}=100 GeV, M_{#chi}=1 GeV x300",  kMagenta+2, roc_signal, 300./lumi_fb_Full2016 );
+  if( masspoint == "ttDM0001pseudo00200")   plotter.AddSignal("ttDM0001pseudo00200", "PS M_{#Phi}=200 GeV, M_{#chi}=1 GeV x400",  kMagenta+2, roc_signal, 400./lumi_fb_Full2016 );
+  if( masspoint == "ttDM0001pseudo00300")   plotter.AddSignal("ttDM0001pseudo00300", "PS M_{#Phi}=300 GeV, M_{#chi}=1 GeV x1000",  kMagenta+2, roc_signal, 1000./lumi_fb_Full2016 );
+  if( masspoint == "ttDM0001pseudo00500")   plotter.AddSignal("ttDM0001pseudo00500", "PS M_{#Phi}=500 GeV, M_{#chi}=1 GeV x1e4",  kMagenta+2, roc_signal, 10000./lumi_fb_Full2016 );
 
   /*if( signal.Contains("ttDM0001scalar00010") )   plotter.AddSignal("ttDM0001scalar00010", "m_{#chi}1 m_{S}10 x2",    color_Signal, roc_signal, 2.  );
   if( signal.Contains("ttDM0001scalar00020") )   plotter.AddSignal("ttDM0001scalar00020", "m_{#chi}1 m_{S}20 x5",    color_Signal, roc_signal, 5.  );
@@ -219,7 +222,7 @@ void PlotterPrepostfits(TString option = "hist", TString signal = "ttDM0001scala
   //plotter.Draw( "nbjet30csvv2m"  , "number of 30 GeV csvv2m b-jets",    -1, 0, "NULL", scale, true, 0,  6, ymin);
   //plotter.Draw( "njet"           , "number of 30 GeV jets",             -1, 0, "NULL", scale, true, 0,  10, ymin);
   ///plotter.Draw( "nvtx"          , "number of vertices",                -1, 0, "NULL", linY,  true, 0,   30, 1);
-  plotter.Draw( "ANN_output", "ANN output", -1, -1, "NULL", scale, true, 0, 1, 1e-4, 1e11);
+  plotter.Draw( "ANN_output", "ANN output", -1, -1, "NULL", scale, true, 0, 1);
 
   //plotter.Draw( "metPfType1"     , sm,                                  10, 0, "GeV",  scale, true, 0,  200, 1);
   //plotter.Roc( "ANN_tanh_mt2ll100_ttDM0001scalar00500", "ANN output"    , 60, "GeV", -0.1, 1.1);
