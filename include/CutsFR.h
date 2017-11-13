@@ -6,7 +6,7 @@
 enum {
   FR_00_QCD,
   FR_01_Zpeak,
-  ncut  // This line should be always last                                                                                                                  
+  ncut  // This line should be always last                                                                            
 };
 
 const TString scut[ncut] = {
