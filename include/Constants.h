@@ -3,13 +3,13 @@
 
 //#include "CutsControl.h"
 //#include "CutsDY.h"
-//#include "CutsFR.h"
+#include "CutsFR.h"
 //#include "CutsMonoH.h"
 //#include "CutsPR.h"
 //#include "CutsShape.h"
 //#include "CutsStop.h"
 //#include "CutsTop.h"
-#include "CutsTTDM.h"
+//#include "CutsTTDM.h"
 //#include "CutsWW.h"
 //#include "CutsWZ.h"
 
@@ -130,6 +130,7 @@ const bool systematicfromweight[nsystematic] = {
 
 // Process colors
 //------------------------------------------------------------------------------
+/*
 const Color_t color_Prefit    = kBlue+1;
 const Color_t color_Signal    = kRed;
 const Color_t color_Fakes     = kGray+1;
@@ -150,11 +151,11 @@ const Color_t color_WgStar    = kBlue+2;
 const Color_t color_Zg        = kTeal;
 const Color_t color_VVV       = kYellow-6;
 const Color_t color_HZ        = kOrange+1;
-
+*/
 
 // EXO-17-014 process colors
 //------------------------------------------------------------------------------
-/*
+
 const Color_t color_Prefit    = kBlue+1;
 const Color_t color_Signal    = kMagenta+1;  // iSIG
 const Color_t color_Fakes     = kMagenta+2;  // iFAKES
@@ -175,7 +176,7 @@ const Color_t color_WgStar    = kBlue+2;
 const Color_t color_Zg        = kTeal;
 const Color_t color_VVV       = kYellow-6;
 const Color_t color_HZ        = kOrange+1;
-*/
+
 
 
 // Branching ratios
