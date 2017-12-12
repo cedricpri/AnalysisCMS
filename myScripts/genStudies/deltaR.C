@@ -104,23 +104,6 @@ void deltaR() {
     float topPt = -999.;
     float antiTopPt = -999.;
 
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     //Let's first calculate the pt of the tops (going to the x-axis of the 2D plot)
     int ntopSoFar = 0;
     for (UInt_t i=0; i<std_vector_partonGen_pt->size(); i++) {
