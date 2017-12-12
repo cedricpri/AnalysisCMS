@@ -178,7 +178,7 @@ void AnalysisCMS::FillHistograms(int ichannel, int icut, int ijet)
   h_mt2ll_m2l     [ichannel][icut][ijet]->Fill(_mt2ll,   _m2l,    _event_weight);
   h_2ht           [ichannel][icut][ijet]->Fill(_ht,      _htjets, _event_weight);
   h_dym           [ichannel][icut][ijet]->Fill(_mllbb,   _dyll,   _event_weight);
-
+  h_deltaR        [ichannel][icut][ijet]->Fill(_minDeltaR, _top1pt_gen, _event_weight);
 
   // Non-prompt systematic uncertainties
   //----------------------------------------------------------------------------
@@ -1343,6 +1343,7 @@ void AnalysisCMS::DefineHistograms(int     ichannel,
   h_mt2ll_m2l     [ichannel][icut][ijet] = new TH2D("h_mt2ll_m2l"      + suffix, "", 150, 0,  150, 100, 40, 140);
   h_2ht           [ichannel][icut][ijet] = new TH2D("h_2ht"            + suffix, "", 200, 0,  800, 200,  0, 800);
   h_dym           [ichannel][icut][ijet] = new TH2D("h_dym"            + suffix, "", 200, 0, 1000, 100,  0,   5);
+  h_deltaR        [ichannel][icut][ijet] = new TH2D("h_deltaR"         + suffix, "", 10, 0,  100, 10,  0, 1.2);
 }
 
 
@@ -1361,6 +1362,16 @@ void AnalysisCMS::OpenMinitree()
   // Minitree branches
   //----------------------------------------------------------------------------
   minitree = new TTree("latino", "minitree");
+
+  minitree->Branch("metPfType1ElecEnUp",&metPfType1ElecEnUp,       "metPfType1ElecEnUp/F");
+  minitree->Branch("metPfType1ElecEnDn",&metPfType1ElecEnDn,       "metPfType1ElecEnDn/F");
+  minitree->Branch("metPfType1MuonEnUp",&metPfType1MuonEnUp,       "metPfType1MuonEnUp/F");
+  minitree->Branch("metPfType1MuonEnDn",&metPfType1MuonEnDn,       "metPfType1MuonEnDn/F");
+
+  minitree->Branch("metPfType1JetEnDn" ,&metPfType1JetEnDn,        "metPfType1JetEnDn/F");
+  minitree->Branch("metPfType1JetEnUp" ,&metPfType1JetEnUp,        "metPfType1JetEnUp/F");
+  minitree->Branch("metPfType1UnclEnDn",&metPfType1UnclEnDn,       "metPfType1UnclEnDn/F");
+  minitree->Branch("metPfType1UnclEnUp",&metPfType1UnclEnUp,       "metPfType1UnclEnUp/F");
 
   // B
   minitree->Branch("bjet1csvv2ivf",     &_bjet1csvv2ivf,    "bjet1csvv2ivf/F");
@@ -1490,6 +1501,7 @@ void AnalysisCMS::OpenMinitree()
   minitree->Branch("mlb2comb",          &_mlb2comb,         "mlb2comb/F");
   minitree->Branch("mlb1true",          &_mlb1true,         "mlb1true/F");
   minitree->Branch("mlb2true",          &_mlb2true,         "mlb2true/F");
+  minitree->Branch("minDeltaR",          &_minDeltaR,         "minDeltaR/F");
   // N
   minitree->Branch("nbjet20cmvav2l",    &_nbjet20cmvav2l,   "nbjet20cmvav2l/F");
   minitree->Branch("nbjet20cmvav2m",    &_nbjet20cmvav2m,   "nbjet20cmvav2m/F");
@@ -1609,11 +1621,27 @@ void AnalysisCMS::GetDeltaR()
       _deltarlep1jet2 = fabs(Lepton1.v.DeltaR(AnalysisJets[1].v));
       _deltarlep2jet2 = fabs(Lepton2.v.DeltaR(AnalysisJets[1].v));
     }
+
+  float deltaR1;
+  float deltaR2;
+  _minDeltaR = 999.;
+  if(_analysis.EqualTo("TTDM")) {
+    for(int i = 0; i < _njet; i++) {
+     
+      deltaR1 = Lepton1.v.DeltaR(AnalysisJets[i].v);
+      if(deltaR1 < _minDeltaR) _minDeltaR = deltaR1;
+      
+      deltaR2 = Lepton2.v.DeltaR(AnalysisJets[i].v);
+      if(deltaR2 < _minDeltaR) _minDeltaR = deltaR2;
+
+    }
+  }
+  
 }
 
 
 //------------------------------------------------------------------------------
-// ComputeMT2
+// Computemt2
 //------------------------------------------------------------------------------
 double AnalysisCMS::ComputeMT2(TLorentzVector VisibleA,
 			       TLorentzVector VisibleB, 

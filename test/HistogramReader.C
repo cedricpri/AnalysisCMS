@@ -523,7 +523,7 @@ void HistogramReader::Draw(TString hname,
 
   if (_publicstyle)
     {
-      x0     = 0.490;
+      x0     = 0.590;
       tsize  = 0.040;
       ydelta = 0.051;
     }
