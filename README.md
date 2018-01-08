@@ -1,4 +1,4 @@
-[0. Analysis documentation](#analysis-documentation)  
+[0. Latino documentation](#latino-documentation)  
 [1. Everything begins here](#everything-begins-here)  
 [2. Always do](#always-do)  
 [3. Compile and run](#compile-and-run)  
@@ -12,9 +12,10 @@
 [11. brilcalc](#brilcalc)  
 [12. CRAB output destination](#crab-output-destination)  
 [13. Polycom connection](#polycom-connection)  
+[14. Combine](#combine)  
 
 
-# <a name="analysis-documentation"/>0. Analysis documentation
+# <a name="latino-documentation"/>0. Latino documentation
 
 AnalysisCMS is a framework that produces Physics distributions based on **latino** trees. It should be fully synchronized with the common latinos framework.
 
@@ -39,9 +40,9 @@ Execute this line only in gridui.
 
 Set a CMSSW release.
 
-    export SCRAM_ARCH=slc6_amd64_gcc530
-    cmsrel CMSSW_8_0_5
-    cd CMSSW_8_0_5/src
+    export SCRAM_ARCH=slc6_amd64_gcc630
+    cmsrel CMSSW_9_3_3
+    cd CMSSW_9_3_3/src
     cmsenv
 
 Go to the master repository (https://github.com/piedraj/AnalysisCMS) and click **Fork** in the top-right corner of the page. Then get the code in your working area.
@@ -85,9 +86,9 @@ Read a MC latino tree that contains the `GEN_weight_SM` variable,
 
 # <a name="always-do"/>2. Always do
 
-    ssh -Y gridui.ifca.es -o ServerAliveInterval=240
-    source /cvmfs/cms.cern.ch/cmsset_default.sh
-    cd CMSSW_8_0_5/src
+    ssh -Y lxplus.cern.ch -o ServerAliveInterval=240
+    bash -l
+    cd CMSSW_9_3_3/src
     cmsenv
     cd AnalysisCMS
 
@@ -345,3 +346,22 @@ Find the latino files and change their ACL permissions.
 3. It will ask for the number below. Enter it you are all set.
 
     \* 10 444 191 #
+
+
+# <a name="combine"/>14. Combine
+
+Combine provides a command line interface to many different statistical techniques available inside RooFit/RooStats used widely inside CMS. It is extensively documented [here](https://cms-hcomb.gitbooks.io/combine/content/). These are the current (December 14th, 2017) setup instructions.
+
+    export SCRAM_ARCH=slc6_amd64_gcc530
+    cmsrel CMSSW_8_1_0
+    cd CMSSW_8_1_0/src 
+    cmsenv
+    git clone https://github.com/cms-analysis/HiggsAnalysis-CombinedLimit.git HiggsAnalysis/CombinedLimit
+    cd HiggsAnalysis/CombinedLimit
+    git fetch origin
+    git checkout v7.0.4
+    scramv1 b clean
+    scramv1 b
+
+To be continued.
+
